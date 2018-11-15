@@ -18,6 +18,7 @@ public class VRRaycaster : MonoBehaviour
     public VRRaycaster.Callback raycastHitCallback;
     public GameObject player;
     public GameObject thingHit;
+    public GameObject basket;
 
 
 
@@ -119,9 +120,21 @@ public class VRRaycaster : MonoBehaviour
                     player.transform.position = newPosition;
                 }
             }
-            else if (hit.transform.gameObject.CompareTag("Respawn"))
+            else if (hit.transform.gameObject.CompareTag("Basket"))
             {
-                thingHit = hit.transform.gameObject;
+
+                if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+                {
+
+                    basket.gameObject.SetActive(true);
+                    GameObject.Find("OculusGoControllerModel").SetActive(false);
+
+                    Vector3 centerOfRoom = new Vector3(0f, 1.65f, 6f);
+                    player.transform.position = centerOfRoom;
+
+                }
+
+                //thingHit = hit.transform.gameObject;
             }
             else
             {
